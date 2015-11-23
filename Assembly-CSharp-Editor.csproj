@@ -46,7 +46,18 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\MenuPageEditor.cs" />
+     <Compile Include="Assets\UniTile\Editor\ObjectLayerEditor.cs" />
+     <Compile Include="Assets\UniTile\Editor\TileEditorWindow.cs" />
+     <Compile Include="Assets\UniTile\Editor\TileLayerEditor.cs" />
+     <Compile Include="Assets\UniTile\Editor\TileLayerEditorAmmendum.cs" />
+     <Compile Include="Assets\UniTile\Editor\TileLayerEditor_LayerProperties.cs" />
+     <Compile Include="Assets\UniTile\Editor\TileLayerEditor_SceneView.cs" />
+     <Compile Include="Assets\UniTile\Editor\TileLayerEditor_Tileset.cs" />
+     <Compile Include="Assets\UniTile\Editor\UniTileManagerEditor.cs" />
+     <Compile Include="Assets\UniTile\TexturePadder\Editor\PadderEditorWindow.cs" />
      <None Include="Assets\Tiling.shader" />
+     <None Include="Assets\UniTile\ReadMe.txt" />
+     <None Include="Assets\UniTile\Shaders\2D Art for iPhone.shader" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Program Files/Unity 5.2.2f1/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>

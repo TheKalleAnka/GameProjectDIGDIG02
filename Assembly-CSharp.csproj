@@ -49,7 +49,16 @@
      <Compile Include="Assets\Scripts\Menu\MenuPage.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Tiling.cs" />
+     <Compile Include="Assets\UniTile\Scripts\ObjectLayer.cs" />
+     <Compile Include="Assets\UniTile\Scripts\TileLayer.cs" />
+     <Compile Include="Assets\UniTile\Scripts\TileLayerUtil.cs" />
+     <Compile Include="Assets\UniTile\Scripts\UniTileManager.cs" />
+     <Compile Include="Assets\UniTile\Scripts\UniTileMarker.cs" />
+     <Compile Include="Assets\UniTile\Scripts\UniTileTemplate.cs" />
+     <Compile Include="Assets\UniTile\Scripts\UniTileTileset.cs" />
      <None Include="Assets\Tiling.shader" />
+     <None Include="Assets\UniTile\ReadMe.txt" />
+     <None Include="Assets\UniTile\Shaders\2D Art for iPhone.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity 5.2.2f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
