@@ -91,10 +91,12 @@ public class PlayerController : MonoBehaviour {
             {
                 grounded = false;
 
-                if (touchingRight && Input.GetKey(cs.right))
+                if (touchingRight)
                     hangingOnWall = WallHang.RIGHT;
-                else if (touchingLeft && Input.GetKey(cs.left))
+                else if (touchingLeft)
                     hangingOnWall = WallHang.LEFT;
+                else
+                    hangingOnWall = WallHang.NULL;
 
             }
             else
