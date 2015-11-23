@@ -45,7 +45,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Editor\MenuPageEditor.cs" />
      <Compile Include="Assets\UniTile\Editor\ObjectLayerEditor.cs" />
      <Compile Include="Assets\UniTile\Editor\TileEditorWindow.cs" />
      <Compile Include="Assets\UniTile\Editor\TileLayerEditor.cs" />

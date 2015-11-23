@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 Base path: C:/Program Files/Unity 5.2.2f1/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-2960
-=======
-Base path: C:/Program Files/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-2460
->>>>>>> refs/remotes/origin/master
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-2200
 Cmd: getPlatforms
-Cmd: preprocess
-  insize=251 outsize=251 ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=1465 outsize=1217 kw= pd= ok=1
+  api=4 type=0 insize=1420 outsize=1379 kw= pd= ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=1465 outsize=673 kw= pd= ok=1
+  api=4 type=1 insize=1420 outsize=1704 kw= pd= ok=1

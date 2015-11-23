@@ -69,14 +69,14 @@ public class Movement : MonoBehaviour {
         //the actual crouching
         if (Input.GetKeyDown(KeyCode.S))
         {
-            bodyBox.size = new Vector2(1, 0.5f);
-            bodyBox.offset = new Vector2(0, -0.24f);
+            bodyBox.size = new Vector2(bodyBox.size.x, 0.5f);
+            bodyBox.offset = new Vector2(bodyBox.offset.x, -0.24f);
         }
             //resets what was done in chrouching when the player lets go of the button
         else if (Input.GetKeyUp(KeyCode.S))
         {
-            bodyBox.size = new Vector2(1, 1);
-            bodyBox.offset = new Vector2(0, 0);
+            bodyBox.size = new Vector2(bodyBox.size.x, 1);
+            bodyBox.offset = new Vector2(bodyBox.offset.x, 0);
         }
     }
 }

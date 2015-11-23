@@ -46,11 +46,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\ControlScheme.cs" />
-<<<<<<< HEAD
+     <Compile Include="Assets\Scripts\Menu\MenuBook.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuPage.cs" />
-=======
      <Compile Include="Assets\Scripts\Movement.cs" />
->>>>>>> refs/remotes/origin/master
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Tiling.cs" />
      <Compile Include="Assets\UniTile\Scripts\ObjectLayer.cs" />
