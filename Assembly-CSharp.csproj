@@ -45,10 +45,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\ControlScheme.cs" />
      <Compile Include="Assets\Scripts\Movement.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\Tiling.cs" />
+     <Compile Include="Assets\Scripts\Saving.cs" />
      <None Include="Assets\Tiling.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
