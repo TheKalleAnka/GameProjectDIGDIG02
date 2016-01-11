@@ -45,7 +45,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BodyPart.cs" />
      <Compile Include="Assets\Scripts\ControlScheme.cs" />
+     <Compile Include="Assets\Scripts\JonesTheTailor.cs" />
      <Compile Include="Assets\Scripts\Menu\MainMenuScript.cs" />
      <Compile Include="Assets\Scripts\Movement.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
