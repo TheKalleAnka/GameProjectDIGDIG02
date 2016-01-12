@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{30B07F94-017C-0240-2791-C588A07E6F04}") = "GameProjectDIGDIG02", "Assembly-CSharp.csproj", "{BADFE040-A997-F7BE-96AE-1371C79E26D1}"
 EndProject
+Project("{30B07F94-017C-0240-2791-C588A07E6F04}") = "GameProjectDIGDIG02", "Assembly-CSharp-Editor.csproj", "{EA60ED3C-8FA9-7C9A-CB82-536BCF14FBAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,11 +15,15 @@ Global
 		{BADFE040-A997-F7BE-96AE-1371C79E26D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BADFE040-A997-F7BE-96AE-1371C79E26D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BADFE040-A997-F7BE-96AE-1371C79E26D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA60ED3C-8FA9-7C9A-CB82-536BCF14FBAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA60ED3C-8FA9-7C9A-CB82-536BCF14FBAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA60ED3C-8FA9-7C9A-CB82-536BCF14FBAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA60ED3C-8FA9-7C9A-CB82-536BCF14FBAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																								GlobalSection(MonoDevelopProperties) = preSolution
+	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
