@@ -59,6 +59,7 @@
      <Compile Include="Assets\UniTile\Scripts\UniTileMarker.cs" />
      <Compile Include="Assets\UniTile\Scripts\UniTileTemplate.cs" />
      <Compile Include="Assets\UniTile\Scripts\UniTileTileset.cs" />
+     <Compile Include="Assets\Scripts\Saving.cs" />
      <None Include="Assets\Tiling.shader" />
      <None Include="Assets\UniTile\ReadMe.txt" />
      <None Include="Assets\UniTile\Shaders\2D Art for iPhone.shader" />
