@@ -14,12 +14,6 @@ public class Movement : MonoBehaviour {
     public Rigidbody2D body;
     public bool canWallJumpRight = false;
     public bool canWallJumpLeft = false;
-
-	// Use this for initialization
-	void Start () 
-    {
-        
-	}
 	
 	// Update is called once per frame
 	void Update () 
@@ -125,14 +119,14 @@ public class Movement : MonoBehaviour {
         //the actual crouching
         if (Input.GetKeyDown(KeyCode.S))
         {
-            bodyBox.size = new Vector2(1, 0.5f);
-            bodyBox.offset = new Vector2(0, -0.25f);
+            bodyBox.size = new Vector2(bodyBox.size.x, 0.5f);
+            bodyBox.offset = new Vector2(bodyBox.offset.x, -0.24f);
         }
             //resets what was done in chrouching when the player lets go of the button
         else if (Input.GetKeyUp(KeyCode.S))
         {
-            bodyBox.size = new Vector2(1, 1);
-            bodyBox.offset = new Vector2(0, 0);
+            bodyBox.size = new Vector2(bodyBox.size.x, 1);
+            bodyBox.offset = new Vector2(bodyBox.offset.x, 0);
         }
     }
 
