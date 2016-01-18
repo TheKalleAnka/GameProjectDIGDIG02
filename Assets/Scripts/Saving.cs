@@ -4,26 +4,28 @@ using System.Xml;
 
 public class Saving : MonoBehaviour {
 
-    public int spriteId_1;
-    string spriteID_1;
+    static public int spriteId_1;
+    static string spriteID_1;
 
-    float timer;
+    
 
 	// Use this for initialization
 	void Start () 
     {
-        timer = Time.time + 5;
+        
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-        spriteID_1 = spriteId_1.ToString();
-        Timer();
+        
+        
 	}
 
-    void Save()
+    static void Save()
     {
+        spriteID_1 = spriteId_1.ToString();
+
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode rootNode = xmlDoc.CreateElement("Sprite-Id");
         xmlDoc.AppendChild(rootNode);
@@ -35,15 +37,16 @@ public class Saving : MonoBehaviour {
         rootNode.AppendChild(bodyPart);
         Debug.Log(spriteID_1);
 
-        xmlDoc.Save("Save.xml");
+        xmslDoc.Save("Save.xml");
     }
 
-    public void Timer()
+    public static void Load()
     {
-        if (timer <= Time.time)
+        XmlDocument xmlDoc = new XmlDocument();
+        xmlDoc.Load("Save.xml");
+        foreach (XmlNode xmlNode in xmlDoc.DocumentElement.ChildNodes[2].ChildNodes[0].ChildNodes)
         {
-            Save();
-            timer = Time.time + 5;
+            Debug.Log(xmlNode.Attributes["Id"].Value);
         }
     }
 

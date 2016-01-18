@@ -38,20 +38,18 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files/Unity 5.2.2f1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files/Unity 5.2.2f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\BodyPart.cs" />
-     <Compile Include="Assets\Scripts\ControlScheme.cs" />
      <Compile Include="Assets\Scripts\JonesTheTailor.cs" />
      <Compile Include="Assets\Scripts\Menu\MainMenuScript.cs" />
      <Compile Include="Assets\Scripts\Movement.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\Tiling.cs" />
+     <Compile Include="Assets\Scripts\Saving.cs" />
      <Compile Include="Assets\UniTile\Scripts\ObjectLayer.cs" />
      <Compile Include="Assets\UniTile\Scripts\TileLayer.cs" />
      <Compile Include="Assets\UniTile\Scripts\TileLayerUtil.cs" />
@@ -59,24 +57,23 @@
      <Compile Include="Assets\UniTile\Scripts\UniTileMarker.cs" />
      <Compile Include="Assets\UniTile\Scripts\UniTileTemplate.cs" />
      <Compile Include="Assets\UniTile\Scripts\UniTileTileset.cs" />
-     <Compile Include="Assets\Scripts\Saving.cs" />
      <None Include="Assets\Tiling.shader" />
      <None Include="Assets\UniTile\ReadMe.txt" />
      <None Include="Assets\UniTile\Shaders\2D Art for iPhone.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files/Unity 5.2.2f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>C:/Program Files/Unity 5.2.2f1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity 5.2.2f1/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
- <HintPath>C:/Program Files/Unity 5.2.2f1/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
- <HintPath>C:/Program Files/Unity 5.2.2f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
