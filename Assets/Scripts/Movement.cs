@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour {
 
     //variables used in the class to set up movement in different directions
     private float speed = 5;
-    private float jump = 10;
+    private float jump = 13;
     public float floatyMove;
     private float contAirTime;
     public BoxCollider2D bodyBox;
@@ -98,6 +98,10 @@ public class Movement : MonoBehaviour {
         {
             canWallJumpLeft = true;
         }
+        if (col.gameObject.CompareTag("LeftWall"))
+        {
+            canWallJumpRight = true;
+        }
     }
     //checking to see when the character leaves the ground
     public void OnCollisionExit2D(Collision2D col)
@@ -109,6 +113,10 @@ public class Movement : MonoBehaviour {
         if (col.gameObject.CompareTag("RightWall"))
         {
             canWallJumpLeft = false;
+        }
+        if (col.gameObject.CompareTag("LeftWall"))
+        {
+            canWallJumpRight = false;
         }
     }
 
@@ -135,6 +143,11 @@ public class Movement : MonoBehaviour {
         if (canWallJumpLeft && Input.GetKey(KeyCode.W))
         {
             body.velocity = new Vector2(-speed * 2f, jump);
+            floatyMove = 0.1f;
+        }
+        else if (canWallJumpRight && Input.GetKey(KeyCode.W))
+        {
+            body.velocity = new Vector2(speed * 2f, jump);
             floatyMove = 0.1f;
         }
     }
