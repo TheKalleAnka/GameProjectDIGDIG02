@@ -924,8 +924,8 @@ public class TileLayerEditor : Editor {
 #endif
 							else 
 								box = new GameObject("BoxCollider");
-							
-							box.layer = LayerMask.NameToLayer("Ground");
+
+                            box.layer = tile.boxLayer;
 							box.tag = tile.boxTag;	
 							collider = box.GetComponent<BoxCollider2D>();
 							if(!collider) collider = box.AddComponent<BoxCollider2D>();
