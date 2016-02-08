@@ -3,22 +3,38 @@ using System.Collections;
 
 public class Movement : MonoBehaviour {
 
+    [SerializeField]
+    Transform groundCheckTransform;
+    [SerializeField]
+    LayerMask groundCheckLayerMask;
+
+    [SerializeField]
+    Transform rightWallCheckTransform;
+    [SerializeField]
+    LayerMask rightWallCheckLayerMask;
+
+    [SerializeField]
+    Transform leftWallCheckTransform;
+    [SerializeField]
+    LayerMask leftWallCheckLayerMask;
 
     //variables used in the class to set up movement in different directions
-    private float speed = 5;
-    private float jump = 13;
+    float speed = 5;
+    float jump = 13;
+    float moveMultiplier = 1f;
+
     [SerializeField]
-    private float moveMultiplier = 1f;
+    float forceMovementControl;
+    float contAirTime;
 
-    public float floatyMove;
-    private float contAirTime;
+    [SerializeField]
+    BoxCollider2D bodyBox;
+    [SerializeField]
+    Rigidbody2D body;
 
-    public BoxCollider2D bodyBox;
-    public Rigidbody2D body;
-
-    public bool grounded = false;
-    public bool canWallJumpRight = false;
-    public bool canWallJumpLeft = false;
+    bool grounded = false;
+    bool canWallJumpRight = false;
+    bool canWallJumpLeft = false;
 
     float timeAttachedToRightWall = 0;
     float timeAttachedToLeftWall = 0;
@@ -30,92 +46,85 @@ public class Movement : MonoBehaviour {
         //Calling methods Move and Crouch
         Move();
         Crouch();
-        WallJumps();
+        Jump();
         Timer();
 
+        hasCheckedGroundedThisLoop = false;
 	}
 
     public void Timer()
     {
         if (canWallJumpLeft)
+            contAirTime = Time.time + 0.1f;
+        if (Time.time >= contAirTime && forceMovementControl < 2)
         {
-            contAirTime = Time.time + 1f;
-        }
-        if (Time.time >= contAirTime && floatyMove < 2)
-        {
-            floatyMove = floatyMove + 0.05f;
-            contAirTime = Time.time + 0.5f;
+            forceMovementControl = forceMovementControl + 0.08f;
+            contAirTime = Time.time + 0.1f;
         }
     }
 
-    //Method used for movement
+    /// <summary>
+    /// Handles all horizontal movement
+    /// </summary>
     public void Move()
     {
-        if (grounded)
+        //move right
+        if (Input.GetKey(KeyCode.D))
         {
-            //move right
-            if (Input.GetKey(KeyCode.D) && !canWallJumpLeft)
-            {
+            if(CheckGrounded())
                 body.velocity = new Vector2(speed * moveMultiplier, body.velocity.y);
-            }
-
-            //move left
-            if (Input.GetKey(KeyCode.A) && !canWallJumpRight)
-            {
-                body.velocity = new Vector2(-speed * moveMultiplier, body.velocity.y);
-            }
-
-            //jump
-            if (Input.GetKey(KeyCode.W))
-            {
-                body.velocity = new Vector2(body.velocity.x, jump);
-            }
+            else if(Time.time > timeAttachedToLeftWall + timeLeaveWallDelay)
+                body.AddForce(new Vector2(forceMovementControl, 0), ForceMode2D.Impulse);
         }
-        else
+        if(Input.GetKey(KeyCode.A))
         {
-            if (Input.GetKey(KeyCode.D) && Time.time > timeAttachedToLeftWall + timeLeaveWallDelay)
-            {
-                body.AddForce(new Vector2(floatyMove, 0), ForceMode2D.Impulse);
-            }
-            if (Input.GetKey(KeyCode.A) && Time.time > timeAttachedToRightWall + timeLeaveWallDelay)
-            {
-                body.AddForce(new Vector2(-floatyMove, 0), ForceMode2D.Impulse);
-            }
-
-            if (body.velocity.x > speed)
-            {
-                body.velocity = new Vector2(speed, body.velocity.y);
-            }
-            else if (body.velocity.x < -speed)
-            {
-                body.velocity = new Vector2(-speed, body.velocity.y);
-            }
+            if(CheckGrounded())
+                body.velocity = new Vector2(-speed * moveMultiplier, body.velocity.y);
+            else if(Time.time > timeAttachedToRightWall + timeLeaveWallDelay)
+                body.AddForce(new Vector2(-forceMovementControl, 0), ForceMode2D.Impulse);
         }
+
+        if (body.velocity.x > speed)
+            body.velocity = new Vector2(speed, body.velocity.y);
+        else if (body.velocity.x < -speed)
+            body.velocity = new Vector2(-speed, body.velocity.y);
     }
 
-    //checking to see if the character is touching the ground
+    /// <summary>
+    /// Check if the player attaches to a wall
+    /// </summary>
+    /// <param name="col"></param>
     public void OnCollisionEnter2D(Collision2D col)
     {
+        /*
         if (col.gameObject.CompareTag("Ground"))
         {
             grounded = true;
-            floatyMove = 2f;
+            forceMovementControl = 2f;
         }
-        if (col.gameObject.CompareTag("RightWall"))
+        if (col.gameObject.CompareTag("RightWall") && !grounded)
         {
             canWallJumpLeft = true;
             timeAttachedToRightWall = Time.time;
         }
-        if (col.gameObject.CompareTag("LeftWall"))
+        if (col.gameObject.CompareTag("LeftWall") && !grounded)
         {
             canWallJumpRight = true;
             timeAttachedToLeftWall = Time.time;
-        }
+        }*/
+
+        if (Physics2D.Linecast(transform.position, leftWallCheckTransform.position, leftWallCheckLayerMask).transform != null)
+            timeAttachedToLeftWall = Time.time;
+        else if (Physics2D.Linecast(transform.position, rightWallCheckTransform.position, rightWallCheckLayerMask).transform != null)
+            timeAttachedToRightWall = Time.time;
     }
 
-    //checking to see when the character leaves the ground
+    /// <summary>
+    /// NOT CURRENTLY USED
+    /// </summary>
+    /// <param name="col"></param>
     public void OnCollisionExit2D(Collision2D col)
-    {
+    {/*
         if (col.gameObject.CompareTag("Ground"))
         {
             grounded = false;
@@ -127,22 +136,24 @@ public class Movement : MonoBehaviour {
         if (col.gameObject.CompareTag("LeftWall"))
         {
             canWallJumpRight = false;
-        }
+        }*/
     }
 
 
-    //Method used for crouching
+    /// <summary>
+    /// Handles crouching
+    /// </summary>
     public void Crouch()
     {
-        //the actual crouching
-        if (Input.GetKeyDown(KeyCode.S))
+        //Check whether the player should start crouching
+        if (Input.GetKeyDown(KeyCode.S) && CheckGrounded())
         {
             bodyBox.size = new Vector2(bodyBox.size.x, 0.5f);
             bodyBox.offset = new Vector2(bodyBox.offset.x, -0.24f);
 
             moveMultiplier = 0.5f;
         }
-            //resets what was done in chrouching when the player lets go of the button
+        //Check whether the player should stop crouching
         else if (Input.GetKeyUp(KeyCode.S))
         {
             bodyBox.size = new Vector2(bodyBox.size.x, 1);
@@ -152,18 +163,56 @@ public class Movement : MonoBehaviour {
         }
     }
 
-    public void WallJumps()
+    /// <summary>
+    /// Handles all kind of jumps
+    /// </summary>
+    public void Jump()
     {
-        if (canWallJumpLeft && Input.GetKeyDown(KeyCode.W))
+        //Normal jump
+        if (Input.GetKeyDown(KeyCode.W) && CheckGrounded())
+            body.velocity = new Vector2(body.velocity.x, jump);
+
+        //Wall jump left
+        if (!CheckGrounded() && Physics2D.Linecast(transform.position, rightWallCheckTransform.position, rightWallCheckLayerMask).transform != null && Input.GetKeyDown(KeyCode.W))
         {
-            body.velocity = new Vector2(-speed * 2f, jump);
-            floatyMove = 0.1f;
+            body.velocity = new Vector2(-speed * 1f, jump);
+            forceMovementControl = 0.1f;
         }
-        else if (canWallJumpRight && Input.GetKeyDown(KeyCode.W))
+        //Wall jump right
+        else if (!CheckGrounded() && Physics2D.Linecast(transform.position, leftWallCheckTransform.position, leftWallCheckLayerMask).transform != null && Input.GetKeyDown(KeyCode.W))
         {
-            body.velocity = new Vector2(speed * 2f, jump);
-            floatyMove = 0.1f;
+            body.velocity = new Vector2(speed * 1f, jump);
+            forceMovementControl = 0.1f;
         }
     }
 
+    bool isGrounded = false;
+    bool hasCheckedGroundedThisLoop = false;
+
+    /// <summary>
+    /// Checks if the character is grounded.
+    /// The bool isGrounded should not be checked
+    /// since it may not be up to date.
+    /// Calling this method only checks whether the
+    /// character is grounded at a minimum of one time 
+    /// per update.
+    /// If it has been cecked this turn it will simply
+    /// return isGrounded and by doing so does not 
+    /// tax the system any extra.
+    /// </summary>
+    /// <returns>A bool which indicates whether the character is gorunded or not</returns>
+    bool CheckGrounded()
+    {
+        if (!hasCheckedGroundedThisLoop)
+        {
+            if (Physics2D.Linecast(transform.position, groundCheckTransform.position, groundCheckLayerMask).transform != null)
+                isGrounded = true;
+            else
+                isGrounded = false;
+
+            hasCheckedGroundedThisLoop = true;
+        }
+
+        return isGrounded;
+    }
 }
