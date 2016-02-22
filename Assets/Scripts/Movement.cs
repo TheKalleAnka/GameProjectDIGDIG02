@@ -88,6 +88,9 @@ public class Movement : MonoBehaviour {
             body.velocity = new Vector2(speed, body.velocity.y);
         else if (body.velocity.x < -speed)
             body.velocity = new Vector2(-speed, body.velocity.y);
+
+        if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+            body.velocity = new Vector2(body.velocity.x * 0.92f, body.velocity.y);
     }
 
     /// <summary>
