@@ -1,6 +1,7 @@
 Temp/
+Library/Metadata
 
-
+*.log
 
 # Windows image file caches
 Thumbs.db
@@ -45,6 +46,3 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-*.log
-*.log
-*.log
