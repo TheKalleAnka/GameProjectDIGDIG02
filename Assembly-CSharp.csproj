@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\Menu\MainMenuScript.cs" />
      <Compile Include="Assets\Scripts\Movement.cs" />
      <Compile Include="Assets\Scripts\Saving.cs" />
+     <Compile Include="Assets\Scripts\SceneChanger.cs" />
      <Compile Include="Assets\UniTile\Scripts\ObjectLayer.cs" />
      <Compile Include="Assets\UniTile\Scripts\TileLayer.cs" />
      <Compile Include="Assets\UniTile\Scripts\TileLayerUtil.cs" />
