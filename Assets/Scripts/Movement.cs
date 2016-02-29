@@ -4,17 +4,23 @@ using System.Collections;
 public class Movement : MonoBehaviour {
 
     [SerializeField]
-    Transform groundCheckTransform;
+    Transform groundCheck1Transform;
+    [SerializeField]
+    Transform groundCheck2Transform;
     [SerializeField]
     LayerMask groundCheckLayerMask;
 
     [SerializeField]
-    Transform rightWallCheckTransform;
+    Transform rightWallCheck1Transform;
+    [SerializeField]
+    Transform rightWallCheck2Transform;
     [SerializeField]
     LayerMask rightWallCheckLayerMask;
 
     [SerializeField]
-    Transform leftWallCheckTransform;
+    Transform leftWallCheck1Transform;
+    [SerializeField]
+    Transform leftWallCheck2Transform;
     [SerializeField]
     LayerMask leftWallCheckLayerMask;
 
@@ -116,9 +122,9 @@ public class Movement : MonoBehaviour {
             timeAttachedToLeftWall = Time.time;
         }*/
 
-        if (Physics2D.Linecast(transform.position, leftWallCheckTransform.position, leftWallCheckLayerMask).transform != null)
+        if (CheckLeftWall())
             timeAttachedToLeftWall = Time.time;
-        else if (Physics2D.Linecast(transform.position, rightWallCheckTransform.position, rightWallCheckLayerMask).transform != null)
+        else if (CheckRightWall())
             timeAttachedToRightWall = Time.time;
     }
 
@@ -176,13 +182,13 @@ public class Movement : MonoBehaviour {
             body.velocity = new Vector2(body.velocity.x, jump);
 
         //Wall jump left
-        if (!CheckGrounded() && Physics2D.Linecast(transform.position, rightWallCheckTransform.position, rightWallCheckLayerMask).transform != null && Input.GetKeyDown(KeyCode.W))
+        if (!CheckGrounded() && CheckLeftWall() && Input.GetKeyDown(KeyCode.W))
         {
             body.velocity = new Vector2(-speed * 1f, jump);
             forceMovementControl = 0.1f;
         }
         //Wall jump right
-        else if (!CheckGrounded() && Physics2D.Linecast(transform.position, leftWallCheckTransform.position, leftWallCheckLayerMask).transform != null && Input.GetKeyDown(KeyCode.W))
+        else if (!CheckGrounded() && CheckRightWall() && Input.GetKeyDown(KeyCode.W))
         {
             body.velocity = new Vector2(speed * 1f, jump);
             forceMovementControl = 0.1f;
@@ -208,7 +214,7 @@ public class Movement : MonoBehaviour {
     {
         if (!hasCheckedGroundedThisLoop)
         {
-            if (Physics2D.Linecast(transform.position, groundCheckTransform.position, groundCheckLayerMask).transform != null)
+            if (Physics2D.Linecast(groundCheck1Transform.position, groundCheck2Transform.position, groundCheckLayerMask).transform != null)
                 isGrounded = true;
             else
                 isGrounded = false;
@@ -217,5 +223,25 @@ public class Movement : MonoBehaviour {
         }
 
         return isGrounded;
+    }
+
+    bool CheckRightWall()
+    {
+        RaycastHit2D hit = Physics2D.Linecast(leftWallCheck1Transform.position, leftWallCheck2Transform.position, leftWallCheckLayerMask);
+
+        print(hit.point);
+
+        if (hit.transform != null)
+            return true;
+
+        return false;
+    }
+
+    bool CheckLeftWall()
+    {
+        if (Physics2D.Linecast(rightWallCheck1Transform.position, rightWallCheck2Transform.position, rightWallCheckLayerMask).transform != null)
+            return true;
+
+        return false;
     }
 }
