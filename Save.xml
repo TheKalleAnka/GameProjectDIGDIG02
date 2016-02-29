@@ -1,3 +1,7 @@
 <Sprite-Id>
-  <Bodypart Id="5" />
+  <Bodyparts>
+    <Head>
+      <Sprite-Id Id="5" />
+    </Head>
+  </Bodyparts>
 </Sprite-Id>
