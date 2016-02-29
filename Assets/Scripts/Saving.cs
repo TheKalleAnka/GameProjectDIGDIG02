@@ -4,7 +4,7 @@ using System.Xml;
 
 public class Saving : MonoBehaviour {
 
-    static public int spriteId_1;
+    static public int spriteId_1 = 5;
     static string spriteID_1;
 
     
@@ -18,7 +18,7 @@ public class Saving : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        
+        Save();
         
 	}
 
@@ -30,14 +30,20 @@ public class Saving : MonoBehaviour {
         XmlNode rootNode = xmlDoc.CreateElement("Sprite-Id");
         xmlDoc.AppendChild(rootNode);
 
-        XmlNode bodyPart = xmlDoc.CreateElement("Bodypart");
+        XmlNode node1 = xmlDoc.CreateElement("Bodyparts");
+        rootNode.AppendChild(node1);
+
+        XmlNode nodeHead = xmlDoc.CreateElement("Head");
+        node1.AppendChild(nodeHead);
+
+        XmlNode bodyparts = xmlDoc.CreateElement("Sprite-Id");
         XmlAttribute spriteId = xmlDoc.CreateAttribute("Id");
         spriteId.Value = spriteID_1;
-        bodyPart.Attributes.Append(spriteId);
-        rootNode.AppendChild(bodyPart);
+        bodyparts.Attributes.Append(spriteId);
+        nodeHead.AppendChild(bodyparts);
         Debug.Log(spriteID_1);
 
-        xmslDoc.Save("Save.xml");
+        xmlDoc.Save("Save.xml");
     }
 
     public static void Load()
