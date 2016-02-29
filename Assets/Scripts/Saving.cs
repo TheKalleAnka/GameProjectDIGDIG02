@@ -45,7 +45,6 @@ public class Saving : MonoBehaviour {
 
         xmlDoc.Save("Save.xml");
     }
-
     public static void Load()
     {
         XmlDocument xmlDoc = new XmlDocument();
