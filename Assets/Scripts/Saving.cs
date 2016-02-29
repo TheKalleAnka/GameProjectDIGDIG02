@@ -4,46 +4,55 @@ using System.Xml;
 
 public class Saving : MonoBehaviour {
 
-    public int spriteId_1;
-    string spriteID_1;
+    static public int spriteId_1 = 5;
+    static string spriteID_1;
 
-    float timer;
+    
 
 	// Use this for initialization
 	void Start () 
     {
-        timer = Time.time + 5;
+        
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-        spriteID_1 = spriteId_1.ToString();
-        Timer();
+        Save();
+        
 	}
 
-    void Save()
+    static void Save()
     {
+        spriteID_1 = spriteId_1.ToString();
+
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode rootNode = xmlDoc.CreateElement("Sprite-Id");
         xmlDoc.AppendChild(rootNode);
 
-        XmlNode bodyPart = xmlDoc.CreateElement("Bodypart");
+        XmlNode node1 = xmlDoc.CreateElement("Bodyparts");
+        rootNode.AppendChild(node1);
+
+        XmlNode nodeHead = xmlDoc.CreateElement("Head");
+        node1.AppendChild(nodeHead);
+
+        XmlNode bodyparts = xmlDoc.CreateElement("Sprite-Id");
         XmlAttribute spriteId = xmlDoc.CreateAttribute("Id");
         spriteId.Value = spriteID_1;
-        bodyPart.Attributes.Append(spriteId);
-        rootNode.AppendChild(bodyPart);
+        bodyparts.Attributes.Append(spriteId);
+        nodeHead.AppendChild(bodyparts);
         Debug.Log(spriteID_1);
 
         xmlDoc.Save("Save.xml");
     }
 
-    public void Timer()
+    public static void Load()
     {
-        if (timer <= Time.time)
+        XmlDocument xmlDoc = new XmlDocument();
+        xmlDoc.Load("Save.xml");
+        foreach (XmlNode xmlNode in xmlDoc.DocumentElement.ChildNodes[2].ChildNodes[0].ChildNodes)
         {
-            Save();
-            timer = Time.time + 5;
+            Debug.Log(xmlNode.Attributes["Id"].Value);
         }
     }
 
