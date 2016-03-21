@@ -24,8 +24,10 @@ public class Movement : MonoBehaviour {
     [SerializeField]
     LayerMask leftWallCheckLayerMask;
 
-    //variables used in the class to set up movement in different directions
+    //variables used in the class to set up movement in different direction
+    [SerializeField]
     float speed = 5;
+    [SerializeField]
     float jump = 13;
     float moveMultiplier = 1f;
 
@@ -38,8 +40,8 @@ public class Movement : MonoBehaviour {
     [SerializeField]
     Rigidbody2D body;
 
-    bool grounded = false;
-    bool canWallJumpRight = false;
+    //bool grounded = false;
+    //bool canWallJumpRight = false;
     bool canWallJumpLeft = false;
 
     float timeAttachedToRightWall = 0;
@@ -148,7 +150,7 @@ public class Movement : MonoBehaviour {
         }*/
     }
 
-
+    Vector4 bodyBoxBeforeCrouch = Vector4.zero;
     /// <summary>
     /// Handles crouching
     /// </summary>
@@ -157,16 +159,21 @@ public class Movement : MonoBehaviour {
         //Check whether the player should start crouching
         if (Input.GetKeyDown(KeyCode.S) && CheckGrounded())
         {
-            bodyBox.size = new Vector2(bodyBox.size.x, 0.5f);
-            bodyBox.offset = new Vector2(bodyBox.offset.x, -0.24f);
+            bodyBoxBeforeCrouch.x = bodyBox.size.x;
+            bodyBoxBeforeCrouch.y = bodyBox.size.y;
+            bodyBoxBeforeCrouch.z = bodyBox.offset.x;
+            bodyBoxBeforeCrouch.w = bodyBox.offset.y;
+
+            bodyBox.size = new Vector2(bodyBox.size.x, bodyBox.size.y * 0.5f);
+            bodyBox.offset = new Vector2(bodyBox.offset.x, bodyBox.offset.y - bodyBox.size.y / 2f);
 
             moveMultiplier = 0.5f;
         }
         //Check whether the player should stop crouching
         else if (Input.GetKeyUp(KeyCode.S))
         {
-            bodyBox.size = new Vector2(bodyBox.size.x, 1);
-            bodyBox.offset = new Vector2(bodyBox.offset.x, 0);
+            bodyBox.size = new Vector2(bodyBox.size.x, bodyBoxBeforeCrouch.y);
+            bodyBox.offset = new Vector2(bodyBox.offset.x, bodyBoxBeforeCrouch.w);
 
             moveMultiplier = 1;
         }
@@ -228,8 +235,6 @@ public class Movement : MonoBehaviour {
     bool CheckRightWall()
     {
         RaycastHit2D hit = Physics2D.Linecast(leftWallCheck1Transform.position, leftWallCheck2Transform.position, leftWallCheckLayerMask);
-
-        print(hit.point);
 
         if (hit.transform != null)
             return true;
