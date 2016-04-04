@@ -1,7 +1,4 @@
 <Sprite-Id>
-  <Bodyparts>
-    <Head>
-      <Sprite-Id Id="5" />
-    </Head>
-  </Bodyparts>
+  <Bodyparts LegsId="1" TorsoId="2" HeadId="1" />
+  <Coins CoinsNum="100" />
 </Sprite-Id>
