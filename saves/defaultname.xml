@@ -1,0 +1,5 @@
+<Root>
+  <Bodyparts LegsId="0" TorsoId="3" HeadId="0" />
+  <Coins CoinsNum="100" />
+  <Level LevelNum="0" />
+</Root>

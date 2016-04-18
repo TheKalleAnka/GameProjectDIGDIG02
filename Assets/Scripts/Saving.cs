@@ -1,60 +1,94 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Xml;
+using System.IO;
 
 public class Saving : MonoBehaviour {
 
-    static public int spriteId_1 = 5;
-    static string spriteID_1;
+    static public int Level;
 
-    
+    static public int Coins = 100;
 
-	// Use this for initialization
-	void Start () 
+    static public void Save(string id, int headId, int torsoId, int armId, int legId)
     {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () 
-    {
-        Save();
-        
-	}
-
-    static void Save()
-    {
-        spriteID_1 = spriteId_1.ToString();
-
         XmlDocument xmlDoc = new XmlDocument();
-        XmlNode rootNode = xmlDoc.CreateElement("Sprite-Id");
+        XmlNode rootNode = xmlDoc.CreateElement("Root");
         xmlDoc.AppendChild(rootNode);
 
-        XmlNode node1 = xmlDoc.CreateElement("Bodyparts");
-        rootNode.AppendChild(node1);
+        XmlNode bodyparts = xmlDoc.CreateElement("Bodyparts");
+        XmlAttribute nodeHead = xmlDoc.CreateAttribute("HeadId");
+        XmlAttribute nodeTorso = xmlDoc.CreateAttribute("TorsoId");
+        XmlAttribute nodeLegs = xmlDoc.CreateAttribute("LegsId");
+        nodeLegs.Value = legId.ToString();
+        nodeHead.Value = headId.ToString();
+        nodeTorso.Value = torsoId.ToString();
+        bodyparts.Attributes.Append(nodeLegs);
+        bodyparts.Attributes.Append(nodeTorso);
+        bodyparts.Attributes.Append(nodeHead);
+        rootNode.AppendChild(bodyparts);
 
-        XmlNode nodeHead = xmlDoc.CreateElement("Head");
-        node1.AppendChild(nodeHead);
+        XmlNode coins = xmlDoc.CreateElement("Coins");
+        XmlAttribute nodeCoins = xmlDoc.CreateAttribute("CoinsNum");
+        nodeCoins.Value = Coins.ToString();
+        coins.Attributes.Append(nodeCoins);
+        rootNode.AppendChild(coins);
 
-        XmlNode bodyparts = xmlDoc.CreateElement("Sprite-Id");
-        XmlAttribute spriteId = xmlDoc.CreateAttribute("Id");
-        spriteId.Value = spriteID_1;
-        bodyparts.Attributes.Append(spriteId);
-        nodeHead.AppendChild(bodyparts);
-        Debug.Log(spriteID_1);
+        XmlNode level = xmlDoc.CreateElement("Level");
+        XmlAttribute nodeLevel = xmlDoc.CreateAttribute("LevelNum");
+        nodeLevel.Value = Level.ToString();
+        level.Attributes.Append(nodeLevel);
+        rootNode.AppendChild(level);
 
-        xmlDoc.Save("Save.xml");
+        xmlDoc.Save(@"saves\" + id + ".xml");
     }
 
-    public static void Load()
+    public static int[] Load(string id)
     {
+        int[] loaded = new int[5];
+
         XmlDocument xmlDoc = new XmlDocument();
-        xmlDoc.Load("Save.xml");
-        foreach (XmlNode xmlNode in xmlDoc.DocumentElement.ChildNodes[2].ChildNodes[0].ChildNodes)
+        xmlDoc.Load(@"saves\" + id + ".xml");
+        XmlNodeList idNodes = xmlDoc.SelectNodes("//Root/Bodyparts");
+        XmlNodeList coinNodes = xmlDoc.SelectNodes("//Root/Coins");
+        XmlNodeList levelNodes = xmlDoc.SelectNodes("//Root/Level");
+
+        foreach (XmlNode node1 in idNodes)
         {
-            Debug.Log(xmlNode.Attributes["Id"].Value);
+            int head = int.Parse(node1.Attributes["HeadId"].Value);
+            int torso = int.Parse(node1.Attributes["TorsoId"].Value);
+            int legs = int.Parse(node1.Attributes["LegsId"].Value);
+
+            loaded[0] = head;
+            loaded[1] = torso;
+            loaded[2] = legs;
+
+            Debug.Log("Head: " + head);
+            Debug.Log("Torso: " + torso);
+            Debug.Log("Legs: " + legs);
+
         }
+        foreach (XmlNode node2 in coinNodes)
+        {
+            int coin = int.Parse(node2.Attributes["CoinsNum"].Value);
+
+            loaded[3] = coin;
+
+            Debug.Log("Coins: " + coin);
+        }
+        foreach (XmlNode node3 in levelNodes)
+        {
+            int level = int.Parse(node3.Attributes["LevelNum"].Value);
+
+            loaded[4] = level;
+
+            Debug.Log("Level: " + level);
+        }
+
+        return loaded;
     }
 
-
+    public static string[] GetAllCharacterNames()
+    {
+        return Directory.GetFiles(@"saves\");
+    }
 }

@@ -10,16 +10,13 @@ public class BodyPart : MonoBehaviour {
     [SerializeField]
     Sprite[] possibleSprites;
 
-    private SpriteRenderer sRenderer;
+    public SpriteRenderer sRenderer;
 
     void Start()
     {
-        sRenderer = GetComponent<SpriteRenderer>();
+        if(sRenderer == null)
+            sRenderer = GetComponent<SpriteRenderer>();
     }
-
-	void Update () {
-	
-	}
 
     public void ChooseNextSprite()
     {
@@ -39,5 +36,23 @@ public class BodyPart : MonoBehaviour {
             activeSprite = possibleSprites.Length - 1;
 
         sRenderer.sprite = possibleSprites[activeSprite];
+    }
+
+    public void SetActiveSprite(int spriteNum)
+    {
+        if(spriteNum >= 0 && spriteNum < possibleSprites.Length)
+        {
+            activeSprite = spriteNum;
+            //print(sRenderer);
+            if (sRenderer == null)
+                sRenderer = GetComponent<SpriteRenderer>();
+
+            sRenderer.sprite = possibleSprites[activeSprite];
+        }
+    }
+
+    public int GetActiveSprite()
+    {
+        return activeSprite;
     }
 }
